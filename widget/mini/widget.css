@@ -1,0 +1,290 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+:root {
+  /* color: #253746bc; */
+
+  --champcard-background-dark-mode: #1a1921;
+
+  --background-color-dark-mode: #191820;
+  --background-color-dark-mode-2: #bbb;
+  --background-color-dark-mode-3: #c1c1c1;
+  --background-color-hovered-dark-mode: #8f1f56;
+  --background-color-hovered-dark-mode-2: #2c1da1;
+  --background-color-hovered-dark-mode-3: #c1c1c1;
+  --champcard-background-dark-mode-2: #1a1921;
+
+  /* --border-color-dark-mode: #2c1da1; */
+  --button-color-1: #2c1da1;
+  --button-color-2: #253746;
+  --button-active-text-color: #ffffff;
+
+  --border-color-hovered-dark-mode: #8f1f56;
+  --card--text-color-hovered-mode-3: #8f1f56;
+
+  --riftfeed-card-style: #007aff;
+  --global-white: #ffffff;
+  --text-color-dark-mode: #ffffff;
+  --card-text-color-dark-mode: #ffffff;
+  --text-color-light-mode: #000;
+  --text-color-dark-mode-secondary: #f3f3f3;
+  --text-color-dark-mode-misc-1: #c4c4c4;
+  --text-color-dark-mode-misc-2: #cccccc;
+  --text-tooltip-primary-color-1: #da217a;
+  --text-color-dark-mode-2: #2c1da1;
+  --text-color-mode-3: #8f1f56;
+  --text-secondary-color: #8890b5;
+  --winpercent-col: green;
+  --banpercent-col: crimson;
+  --pickpercent-col: #2c1da1;
+
+  --text-shadow: #000;
+  --box-shadow: rgba(0, 0, 0, 0.25);
+  --border-color-dark-mode: #7e7e7e;
+
+  --champ-filter: brightness(1);
+  --font-family: "Roboto", sans-serif;
+
+  --widget-text-primary: #ffffff;
+  --widget-text-secondary: #acafca;
+  --widget-text-color: #233644;
+  --widget-text-others: #a99363;
+
+  --widget-background-primary: #131335;
+  --widget-background-secondary: #445460;
+  --widget-background-tertiary: #606e78;
+  --widget-background-other: #233644;
+  --widget-card-background: #c4a76a;
+  --widget-lane-background: #ac9664;
+  --widget-champions-card: #606e78;
+  --image-border: #5eb0f8;
+}
+
+.body {
+  width: 100%;
+  background-color: var(--background-color-dark-mode);
+  color: var(--text-color-dark-mode);
+  font-family: var(--font-family);
+}
+
+* {
+  font-family: var(--font-family);
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-color-dark-mode);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+/* Mini widget styles */
+.widget__mini {
+  display: flex;
+  flex-direction: column;
+  width: 370px;
+  padding: 1rem;
+  margin: 0 auto;
+  border-radius: 10px;
+  border-bottom: 5px solid var(--widget-text-others);
+  border-top: 5px solid var(--widget-text-others);
+  background: var(--widget-background-other);
+}
+
+.widget__featured__section,
+.widget__best__section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  height: max-content;
+}
+.widget__featured__section {
+  background: none;
+  flex-direction: column;
+  gap: 1rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.widget__featured__cards {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+
+.widget__featured__card {
+  width: 165px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-content: center;
+  background: var(--widget-background-secondary);
+  box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 0.8rem 0.5rem;
+}
+
+.widget__top__section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: max-content;
+}
+
+.widget__active__class {
+  filter: invert(40%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.widget__active__class img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.widget__champ__role {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  float: left;
+}
+
+.widget__champ__role img {
+  border-color: transparent;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  outline: none;
+  margin: 0 0 5px 0;
+}
+.widget__role-top,
+.widget__role-adc {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.widget__avatar__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 1rem 1.2rem;
+}
+.widget__avatar__container img {
+  border-radius: 50px;
+  border: 2px solid var(--image-border);
+  width: 70px;
+  height: 70px;
+}
+.widget__champion__summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.widget__champ__title {
+  font-family: var(--font-family);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--widget-text-primary);
+}
+.widget__champ__descritpion {
+  font-size: 13px;
+  line-height: 15px;
+  color: var(--widget-text-secondary);
+}
+.widget__best__section {
+  height: max-content;
+  /* background: var(--widget-card-background); */
+  gap: 1rem;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.widget__title__area h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--widget-text-primary);
+}
+
+.widget__title__area h3 {
+  color: var(--widget-text-others);
+  margin-top: 0.8rem;
+}
+.widget__title__area p {
+  color: var(--widget-text-secondary);
+}
+.widget__best__cards_section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.widget__title__area {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.widget__best__cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--widget-background-secondary);
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+.widget__lane_icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  width: 40%;
+}
+.widget__lane_icons img {
+  width: 30px;
+  height: 30px;
+}
+
+.widget__lane_icons span {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--widget-text-primary);
+}
+
+.widget__best__img_section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* gap:.5rem; */
+  width: 100%;
+  height: 100%;
+  background: var(--widget-champions-card);
+  padding: 0.8rem 0;
+  border-radius: 8px;
+}
+.widget__best__img {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+}
+.widget__best__img img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--image-border);
+}
+.widget__best__img {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--widget-text-primary);
+}

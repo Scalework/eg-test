@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://www.google.com"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+    integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="./styles/allChampionLayout.css" />
+  <script src="./js/theming.js" type="text/javascript" defer></script>
+  <script src="./js/widget/featuredChampions.js" defer></script>
+  <script src="./js/widget/topChampions.js" defer></script>
+
+  <script src="./js/allChampions.js" type="text/javascript" defer></script>
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/tippy.js@6"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>LOL - Dashboard</title>
+</head>
+
+<body class="body" id="data-template">  
+  <div class="test">
+    <div class="section__margin header-section">
+      <nav class="nav__section">
+        <div class="nav__content">
+          <div class="navbar__title">
+            <h2>All League of Legends Champions</h2>
+          </div>
+          <div class="navbar__links-section">
+            <div class="navbar__links-left">
+              <div class="navbar__links-left">
+                <span>
+                  <a href="#">Stats</a>
+                </span>
+                |
+                <span>
+                  <a href="#">Runes</a>
+                </span>
+                |
+                <span>
+                  <a href="#">Items</a>
+                </span>
+              </div>
+            </div>
+
+            <div class="navbar__links-right">
+              <div class="search-bar">
+                <input type="text" class="search-bar" id="search-champions" placeholder="Search for a champion..."
+                  title="Champion search..." />
+              </div>
+              <div class="navbar_filter_icons">
+                <div class="nav__icons_img">
+                  <span class="icons">
+                    <img class="active" data-filter="all"
+                      src="./imgassets/LoL_Dashboard_Phase_1_Design_Assets/Positions/Basic/Fill.png" alt="fill" />
+                  </span>
+                  <span class="icons">
+                    <img data-filter="top"
+                      src="./imgassets/LoL_Dashboard_Phase_1_Design_Assets/Positions/Others/top-white.png" alt="top" />
+                  </span>
+                  <span class="icons">
+                    <img data-filter="jungle"
+                      src="./imgassets/LoL_Dashboard_Phase_1_Design_Assets/Positions/Basic/Jungle.png" alt="jungle" />
+                  </span>
+                  <span class="icons">
+                    <img data-filter="mid"
+                      src="./imgassets/LoL_Dashboard_Phase_1_Design_Assets/Positions/Basic/Midlane.png" alt="mid" />
+                  </span>
+                  <span class="icons">
+                    <img data-filter="adc"
+                      src="./imgassets/LoL_Dashboard_Phase_1_Design_Assets/Positions/Others/bot-white.png" alt="bot" />
+                  </span>
+                  <span class="icons">
+                    <img data-filter="support"
+                      src="./imgassets/LoL_Dashboard_Phase_1_Design_Assets/Positions/Basic/Support.png" alt="support" />
+                  </span>
+                </div>
+                <div class="filter-container">
+                  <select class="filter-select">
+                    <option value="all classes">* All classes</option>
+                    <option value="Assassin">Assassin</option>
+                    <option value="Fighter">Fighter</option>
+                    <option value="Mage">Mage</option>
+                    <option value="Marksman">Marksman</option>
+                    <option value="Support">Support</option>
+                    <option value="Tank">Tank</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mobile-menu" id="menu">
+                <img class="lol-ico" src="./imgassets/Menu.png" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div id="loader"></div>
+    <main class="main__body">
+      <div class="champions-listing-container">
+        <div class="champion" id="champions"></div>
+      </div>
+      <a href="#" class="to-top">
+        <img class="caveat" src="./imgassets/caret-down.svg" id="to-top" />
+      </a>
+    </main>
+  </div>
+
+  <script>
+
+
+    $(document).ready(function () {
+      //all champion filter events
+      let position = 0;
+      let spanContainer = document.querySelector(".nav__icons_img");
+      let spansImage = document.querySelectorAll(".icons img");
+      let current = document.querySelector(".active");
+
+      document.getElementById("menu").addEventListener("click", () => {
+        document
+          .querySelector(".navbar_filter_icons")
+          .classList.toggle("showmenu");
+      });
+      spansImage.forEach((img) => {
+        img.addEventListener("click", function () {
+          spansImage.forEach((image) => image.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+
+      //get url params
+      var hash_param = window.location.hash;
+
+      if (hash_param !== "") {
+        var o_params = hash_param.split("?")[1].split("&");
+
+        var championid = o_params[0].split("=")[1];
+        // console.log("new champion id", championid)
+        var role = o_params[1].split("=")[1]
+        var rank = o_params[2].split("=")[1]
+        var region = o_params[3].split("=")[1]
+
+
+        var targetparam = hash_param.split("?")[0].replace("#", "");
+        let data = { championid, role, rank, region, targetparam };
+        window.localStorage.setItem("champaram", JSON.stringify(data));
+
+        $.ajax({
+          url: "champDetails.html",
+          type: "GET",
+          data: {},
+          success: function (data) {
+            $(".test").html(data);
+          },
+          error: function (data) {
+            // console.log(data);
+          },
+        });
+      }
+
+
+
+      $(document).on("click", ".champion-card", function () {
+        let championid = $(this).attr("champion");
+        let role = $(this).attr("role");
+        let rank = $(this).attr("rank");
+        let region = $(this).attr("region");
+        let targetparam = $(this).attr("targetparam");
+        let data = { championid, role, rank, region, targetparam };
+        window.localStorage.setItem("champaram", JSON.stringify(data));
+
+        $.ajax({
+          url: "champDetails.html",
+          type: "GET",
+          data: {},
+          success: function (data) {
+            $(".test").html(data);
+          },
+          error: function (data) {
+            // console.log(data);
+          },
+        });
+      });
+    });
+
+  </script>
+</body>
+
+</html>

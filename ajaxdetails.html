@@ -1,0 +1,408 @@
+<script
+  src="./js/championDetails-components/tooltip.js"
+  type="text/javascript"
+  defer
+></script>
+
+<script
+  src="./js/championDetails-components/ajaxbase.js"
+  type="text/javascript"
+  defer
+></script>
+
+<script
+  src="./js/championDetails-components/ChampionSummaryData.js"
+  type="text/javascript"
+  defer
+></script>
+<script
+  src="./js/championDetails-components/ChampionStatistics.js"
+  type="text/javascript"
+  defer
+></script>
+<script
+  src="./js/championDetails-components/RunesPerformanceBuilds.js"
+  type="text/javascript"
+  defer
+></script>
+<script
+  src="./js/championDetails-components/SkillOrders.js"
+  type="text/javascript"
+  defer
+></script>
+<script
+  src="./js/championDetails-components/BestPlayers.js"
+  type="text/javascript"
+  defer
+></script>
+<script
+  src="./js/championDetails-components/SkinsGallery.js"
+  type="text/javascript"
+  defer
+></script>
+
+<main class="main__section">
+  <div class="Banner__stats_section">
+    <div class="banner__section"></div>
+    <div class="stats__section">
+      <div id="spells" class="spells1 sk-order">
+        <div class="passive_main"></div>
+      </div>
+
+      <div class="statistics-summary">
+        <div class="Icons-section">
+          <div class="champ-primary-class" id="champ-primary-class"></div>
+          <div class="diffilculty-section" id="champion-difficulty-level"></div>
+          <div class="damages">
+            <span>Damage Breakdown</span>
+            <div class="damage-levels" id="dm-levels"></div>
+          </div>
+          <div class="power-spike" id="power-spike"></div>
+        </div>
+        <div class="chart-section">
+          <div class="rates">
+            <!-- champion win rate, data mapped from api -->
+            <div class="rate" id="win-rate"></div>
+            <div class="graph" style="height: 4vh; width: 40%">
+              <canvas id="winrates" aria-label="winrate" role="img"> </canvas>
+            </div>
+          </div>
+          <div class="rates">
+            <!-- champion ban rate, data mapped from api -->
+            <div class="rate" id="ban-rate"></div>
+            <div class="graph" style="height: 4vh; width: 40%">
+              <canvas id="banrates"></canvas>
+            </div>
+          </div>
+          <div class="rates">
+            <!-- champion pick rate, data mapped from api -->
+            <div class="rate" id="pick-rate"></div>
+            <div class="graph" style="height: 4vh; width: 40%">
+              <canvas id="pickrates"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="champion-class-active" id="champion-primary role"></div>
+    </div>
+  </div>
+
+  <div class="Build__Skills_section">
+    <div class="section-buttons">
+      <button
+        class="btn-build active"
+        id="btn-builds"
+        onclick="showchampionBuilds();"
+      >
+        Build
+      </button>
+      <button class="btn-skins" id="btn-skins" onclick="showchampionSkins();">
+        Skins
+      </button>
+      <button
+        class="btn-artvid"
+        id="btn-artsvid"
+        onclick="showchampionArtsVids();"
+      >
+        Articles
+      </button>
+    </div>
+    <div class="build__skill__video_content">
+      <div class="build__section build" id="champ-build">
+        <div class="active-section">
+          <div class="col_1">
+            <div class="primaryStyle"></div>
+            <div class="primaryslot">
+              <div class="slot" id="keystone"></div>
+              <div class="slot" id="prim_slot_1"></div>
+              <div class="slot" id="prim_slot_2"></div>
+              <div class="slot" id="prim_slot_3"></div>
+              <div id="keysonte_slot_tooltip" style="display: none"></div>
+              <div id="slot_one_tootltip" style="display: none"></div>
+              <div id="slot_two_tootltip" style="display: none"></div>
+              <div id="slot_three_tootltip" style="display: none"></div>
+            </div>
+          </div>
+          <div class="col_2">
+            <div class="secondaryStyle"></div>
+            <div class="row_1">
+              <div class="subslot" id="sub_slot_1"></div>
+              <div class="subslot" id="sub_slot_2"></div>
+              <div class="subslot" id="sub_slot_3"></div>
+              <div id="subSlot_one_tootltip" style="display: none"></div>
+              <div id="subSlot_two_tootltip" style="display: none"></div>
+              <div id="subSlot_three_tootltip" style="display: none"></div>
+            </div>
+            <div class="row_2">
+              <div id="sub-style-keystones"></div>
+            </div>
+            <div class="row_3">
+              <div class="slot" id="shards-defense"></div>
+              <div class="slot" id="shards-flex"></div>
+              <div class="slot" id="shards-offense"></div>
+              <div id="defense_tootltip" style="display: none"></div>
+              <div id="flex_tootltip" style="display: none"></div>
+              <div id="offense_tootltip" style="display: none"></div>
+            </div>
+          </div>
+          <div class="col_3">
+            <div class="summoners">
+              <span>Summoners</span>
+              <span id="early-items"></span>
+            </div>
+            <div class="starter-items">
+              <span>Starter Items</span>
+              <span id="starter-items"></span>
+            </div>
+            <div class="core-items">
+              <span>Core Items</span>
+              <span id="core-items"></span>
+            </div>
+            <div class="situational-items">
+              <span>Situational Items</span>
+              <span id="situational-items"></span>
+            </div>
+            <div id="earlyItems_tootltips" style="display: none"></div>
+            <div id="earlyItemsTwo_tootltips" style="display: none"></div>
+            <div id="starterItems_tootltips" style="display: none"></div>
+            <div id="coreItems_tootltips" style="display: none"></div>
+            <div id="situationalItems_tootltips" style="display: none"></div>
+          </div>
+        </div>
+        <div class="popularity-section">
+          <span class="popularity" id="popularity"></span>
+        </div>
+      </div>
+      <div class="skins__section skins" id="champion-skins">
+        <div class="slider-left" id="slider-arrows">
+          <img src="./imgassets/carets/caret-left.svg" alt="caret-previous" />
+          <img src="./imgassets/carets/caret-left.svg" alt="caret-previous" />
+          <img src="./imgassets/carets/caret-left.svg" alt="caret-previous" />
+        </div>
+
+        <div id="champ-skins"></div>
+
+        <div class="slider-right" id="slider-arrow-right">
+          <img src="./imgassets/carets/caret-right.svg" alt="caret-next" />
+          <img src="./imgassets/carets/caret-right.svg" alt="caret-next" />
+          <img src="./imgassets/carets/caret-right.svg" alt="caret-next" />
+        </div>
+      </div>
+      <div class="videos__section artsvideos" id="champ-artsvids">
+        <iframe src="./iframelink.html" title="articles-section"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="Skillorder__bestChamp_section" id="orders-bestplays">
+    <div class="skill__order__section">
+      <div class="skill__order__header">
+        <h3>Skill Order</h3>
+        <div class="skill__order_header_img"></div>
+      </div>
+      <div class="skill__order__content">
+        <div class="skill__order_img__section">
+          <div><p>Skills</p></div>
+          <div class="img-one"></div>
+          <div class="img-two"></div>
+          <div class="img-three"></div>
+          <div class="img-four"></div>
+        </div>
+        <div class="skill__order_content_display">
+          <div class="skill__order_main">
+            <div class="skill__order_one m-number">1</div>
+            <div class="skill__order_buble bubble_show"></div>
+            <div class="skill__orderB_One bubble_show"></div>
+            <div class="skill__orderC_One bubble_show"></div>
+            <div class="skill__orderD_One bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_two m-number">2</div>
+            <div class="skill__order_buble_two bubble_show"></div>
+            <div class="skill__orderB_two bubble_show"></div>
+            <div class="skill__orderC_two bubble_show"></div>
+            <div class="skill__orderD_two bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_three m-number">3</div>
+            <div class="skill__order_buble_three bubble_show"></div>
+            <div class="skill__orderB_three bubble_show"></div>
+            <div class="skill__orderC_three bubble_show"></div>
+            <div class="skill__orderD_three bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_four m-number">4</div>
+            <div class="skill__order_buble_four bubble_show"></div>
+            <div class="skill__orderB_four bubble_show"></div>
+            <div class="skill__orderC_four bubble_show"></div>
+            <div class="skill__orderD_four bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_five m-number">5</div>
+            <div class="skill__order_buble_five bubble_show"></div>
+            <div class="skill__orderB_five bubble_show"></div>
+            <div class="skill__orderC_five bubble_show"></div>
+            <div class="skill__orderD_five bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_six m-number">6</div>
+            <div class="skill__order_buble_six bubble_show"></div>
+            <div class="skill__orderB_six bubble_show"></div>
+            <div class="skill__orderC_six bubble_show"></div>
+            <div class="skill__orderD_six bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_seven m-number">7</div>
+            <div class="skill__order_buble_seven bubble_show"></div>
+            <div class="skill__orderB_seven bubble_show"></div>
+            <div class="skill__orderC_seven bubble_show"></div>
+            <div class="skill__orderD_seven bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_eight m-number">8</div>
+            <div class="skill__order_buble_eight bubble_show"></div>
+            <div class="skill__orderB_eight bubble_show"></div>
+            <div class="skill__orderC_eight bubble_show"></div>
+            <div class="skill__orderD_eight bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_nine m-number">9</div>
+            <div class="skill__order_buble_nine bubble_show"></div>
+            <div class="skill__orderB_nine bubble_show"></div>
+            <div class="skill__orderC_nine bubble_show"></div>
+            <div class="skill__orderD_nine bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_ten m-number">10</div>
+            <div class="skill__order_buble_ten bubble_show"></div>
+            <div class="skill__orderB_ten bubble_show"></div>
+            <div class="skill__orderC_ten bubble_show"></div>
+            <div class="skill__orderD_ten bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_eleven m-number">11</div>
+            <div class="skill__order_buble_eleven bubble_show"></div>
+            <div class="skill__orderB_eleven bubble_show"></div>
+            <div class="skill__orderC_eleven bubble_show"></div>
+            <div class="skill__orderD_eleven bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_twelve m-number">12</div>
+            <div class="skill__order_buble_twelve bubble_show"></div>
+            <div class="skill__orderB_twelve bubble_show"></div>
+            <div class="skill__orderC_twelve bubble_show"></div>
+            <div class="skill__orderD_twelve bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_thirteen m-number">13</div>
+            <div class="skill__order_buble_thirteen bubble_show"></div>
+            <div class="skill__orderB_thirteen bubble_show"></div>
+            <div class="skill__orderC_thirteen bubble_show"></div>
+            <div class="skill__orderD_thirteen bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_fourteen m-number">14</div>
+            <div class="skill__order_buble_fourteen bubble_show"></div>
+            <div class="skill__orderB_fourteen bubble_show"></div>
+            <div class="skill__orderC_fourteen bubble_show"></div>
+            <div class="skill__orderD_fourteen bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_fifteen m-number">15</div>
+            <div class="skill__order_buble_fifteen bubble_show"></div>
+            <div class="skill__orderB_fifteen bubble_show"></div>
+            <div class="skill__orderC_fifteen bubble_show"></div>
+            <div class="skill__orderD_fifteen bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_sixteen m-number">16</div>
+            <div class="skill__order_buble_sixteen bubble_show"></div>
+            <div class="skill__orderB_sixteen bubble_show"></div>
+            <div class="skill__orderC_sixteen bubble_show"></div>
+            <div class="skill__orderD_sixteen bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_seventeen m-number">17</div>
+            <div class="skill__order_buble_seventeen bubble_show"></div>
+            <div class="skill__orderB_seventeen bubble_show"></div>
+            <div class="skill__orderC_seventeen bubble_show"></div>
+            <div class="skill__orderD_seventeen bubble_show"></div>
+          </div>
+          <div class="skill__order_main">
+            <div class="skill__order_eighteen m-number">18</div>
+            <div class="skill__order_buble_eighteen bubble_show"></div>
+            <div class="skill__orderB_eighteen bubble_show"></div>
+            <div class="skill__orderC_eighteen bubble_show"></div>
+            <div class="skill__orderD_eighteen bubble_show"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="skill-order">
+      <section>
+        <h4>Skill Order</h4>
+        <div class="skill-order-combination" id="sk-order-combination"></div>
+        <!--skill order row toltips-->
+
+        <div id="first_row_tooltips" style="display: none"></div>
+        <div id="second_row_tootltips" style="display: none"></div>
+        <div id="third_row_tooltips" style="display: none"></div>
+
+        <!--skill order column toltips-->
+        <div id="skillOrderQ_tootltips" style="display: none"></div>
+        <div id="skillOrderE_tootltips" style="display: none"></div>
+        <div id="skillOrderW_tootltips" style="display: none"></div>
+        <div id="skillOrderR_tootltips" style="display: none"></div>
+      </section>
+      <div class="skill-order-table">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>1</th>
+              <th>2</th>
+              <th>3</th>
+              <th>4</th>
+              <th>5</th>
+              <th>6</th>
+              <th>7</th>
+              <th>8</th>
+              <th>9</th>
+              <th>10</th>
+              <th>11</th>
+              <th>12</th>
+              <th>13</th>
+              <th>14</th>
+              <th>15</th>
+              <th>16</th>
+              <th>17</th>
+              <th>18</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- map skill order cells -->
+            <tr id="skillcellsa"></tr>
+            <tr id="skillcellsb"></tr>
+            <tr id="skillcellsc"></tr>
+            <tr id="skillcellsd"></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="best-players">
+      <h4 id="best-plays-heading">Best Player</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Summoners</th>
+            <th>Region</th>
+            <th>Rank</th>
+            <th>Win Rate</th>
+            <th>Played</th>
+          </tr>
+        </thead>
+        <tbody id="best-plays-body"></tbody>
+      </table>
+    </div>
+  </div>
+</main>
